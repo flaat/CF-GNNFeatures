@@ -1,0 +1,22 @@
+defaults:
+  - _self_
+  - dataset: webk
+  - model: gcn
+  - optimizer: adam
+  - general: general_default
+  - task:  node_classification #evaluate experiments node_classification
+  - technique: cf-gnnfeatures
+  - trainer: naive_trainer
+  - logger: wandb
+
+verbose: False
+random_num_epochs: 500
+device: cuda
+workers: 2
+path: ""
+seed: 1
+run_mode: run
+project: cf-gnn-extension
+name: test
+timeout: 25
+num_agents: 2

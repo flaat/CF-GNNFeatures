@@ -1,0 +1,17 @@
+data
+runs
+results
+outputs
+imgs
+
+# Ignore Python byte-compiled files
+__pycache__
+*.pyc
+*.pyo
+
+# Ignore log files
+*.log
+*.json
+
+wandb
+.vscode
