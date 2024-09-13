@@ -16,7 +16,13 @@ workers: 2
 path: ""
 seed: 1
 run_mode: run
+
+# Project name on wandb
 project: cf-gnn-extension
 name: test
+
+# Eventual timeout in seconds to kill the process
 timeout: 25
+
+# Number of agents to carry out the simulation
 num_agents: 2

@@ -1,64 +1,62 @@
-# Feature Perturbation Based Counterfactual Generator
-![Python Version](https://img.shields.io/badge/python-3.7-blue)
-![PyTorch Version](https://img.shields.io/badge/pytorch-1.6.0-red)
-![PyTorch Geometric Version](https://img.shields.io/badge/torch_geometric-1.6.1-brightgreen)
+# Combining Structural and Node Feature Perturbations to Generate Counterfactual Explanations for Graph Neural Networks
+![Python Version](https://img.shields.io/badge/python-3.11.9-brightgreen)
+![PyTorch Version](https://img.shields.io/badge/pytorch-2.3.0-brightgreen)
+![PyTorch Geometric Version](https://img.shields.io/badge/torch_geometric-2.5.3-brightgreen)
+![Hydra](https://img.shields.io/badge/hydracore-1.3.2-brightgreen)
+![PyTorch Geometric Version](https://img.shields.io/badge/wandb-0.17.1-brightgreen)
 
-This repository is the official implementation of the [AISTATS 2022 paper CF-GNNExplainer: Counterfactual Explanations for Graph Neural Networks](https://arxiv.org/abs/2102.03322). 
+This repository is the official implementation of the paper:
+### Combining Structural and Node Feature Perturbations to Generate Counterfactual Explanations for Graph Neural Networks
 
 ## Requirements
 
 To install requirements:
 
 ```setup
-conda env create --file environment.yml
+pip install requirements.txt
 ```
 
->📋 This will create a conda environment called pytorch-geo
+## How to start the code
 
-## Training original models
+You can start the the code just typing 
 
-To train the original GNN models for the BA-shapes dataset in the paper, cd into src and run this command:
-
-```train
-python train.py --dataset=syn1
+```start
+python main.py
 ```
 
->📋  For the Tree-Cycles dataset, the dataset argument should be "syn4". For the Tree-Grid dataset, it should be "syn5". All hyperparameter settings are listed in the defaults, and all models have the same hyperparameters. 
+In this way you are going to start the software with the default hydra configuration.
 
+If you want to change options in the default configuration continue to read
 
-## Training CF-GNNExplainer
+## Conifgurations
+There are many ways to configure the software, you can chose among: dataset, logger, technique, run_mode
 
-To train CF-GNNExplainer for each dataset, run the following commands:
+### Dataset
+You can chose among one of these dataset classes, namely:
+* **planetoid**: cora, citeseer, pubmed
+* **attributed**: Facebook BlogCatalog, Wiki
+* **webkb**: Cornell, Wisconsin, Texas
+* **karate**
+* **actor**
 
-```train
-python main_explain.py --dataset=syn1 --lr=0.01 --beta=0.5 --n_momentum=0.9 --optimizer=SGD
-python main_explain.py --dataset=syn4 --lr=0.1 --beta=0.5 --optimizer=SGD
-python main_explain.py --dataset=syn5 --lr=0.1 --beta=0.5 --optimizer=SGD
+for example if you need to use the dataset cora you can use the following commands:
+```dataset
+... dataset=planetoid dataset.name=cora
 ```
 
->📋  This will create another folder in the main directory called 'results', where the results files will be stored.
+### Logger
+You can chose among different mode for the logger
+* **mode**: online, offline
+* **conifg**: $your_config_name
 
+### Technique
 
-## Evaluation
+### Run Mode
 
-To evaluate the CF examples, run the following command:
+## How to run the code, an example
 
-```eval
-python evaluate.py --path=../results/<NAME OF RESULTS FILE>
+In order to run the code you can 
+
+```start
+python main.py run_mode=run logger.mode=online  
 ```
->📋  This will print out the values for each metric.
-
-## Pre-trained Models
-
-The pretrained models are available in the models folder
-
-
-## Results
-
-Our model achieves the following performance:
-
-| Model name         | Dataset        | Fidelity       |  Size |    Sparsity   | Accuracy    |
-| ------------------ |---------------- | -------------- | -------------- | -------------- |   -------------- |
-| CF-GNNExplainer   |     Tree-Cycles  |      0.21       |      2.09           |       0.90        |      0.94       |
-| CF-GNNExplainer   |     Tree-Grid    |      0.07       |       1.47          |      0.94         |     0.96        |
-| CF-GNNExplainer   |     BA-Shapes    |      0.39       |       2.39          |       0.99        |      0.96        |
