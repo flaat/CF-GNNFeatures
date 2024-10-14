@@ -66,5 +66,5 @@ python main.py run_mode=run logger.mode=online
 In order to run the code type
 
 ```start
-bash experiments.sh
+bash run_experiments.sh
 ```
