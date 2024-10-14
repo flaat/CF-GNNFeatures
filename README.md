@@ -60,3 +60,11 @@ In order to run the code you can
 ```start
 python main.py run_mode=run logger.mode=online  
 ```
+
+## How to run the experiments
+
+In order to run the code type
+
+```start
+bash experiments.sh
+```
