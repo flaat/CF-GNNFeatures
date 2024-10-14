@@ -1,6 +1,6 @@
 defaults:
   - _self_
-  - dataset: webk
+  - dataset: planetoid
   - model: gcn
   - optimizer: adam
   - general: general_default

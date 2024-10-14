@@ -50,7 +50,7 @@ def train(cfg):
         set_run_name(cfg, run)
 
         device = "cuda" if torch.cuda.is_available() and cfg.device == "cuda" else "cpu"
-        dataset = get_dataset(cfg.dataset.name)
+        dataset = get_dataset(cfg.dataset.name, test_size=0.01)
         datainfo = DataInfo(cfg, dataset)
 
         wrapper = NodesExplainerWrapper(cfg=cfg)

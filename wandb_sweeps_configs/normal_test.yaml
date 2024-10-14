@@ -8,7 +8,3 @@ parameters:
   seed:
     min: 0
     max: 5
-  technique_name:
-    values: ["cf-gnn", "random-feat", "cf-gnnfeatures", "random", "ego", "cff"]
-  epochs:
-    values: [500]

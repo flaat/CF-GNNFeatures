@@ -6,7 +6,7 @@ import pickle
 from torch_geometric.utils import dense_to_sparse
 
 
-def get_dataset(dataset_name: str = None)->Data:
+def get_dataset(dataset_name: str = None, test_size: float = 0.2)->Data:
     """_summary_
 
     Args:
@@ -22,7 +22,7 @@ def get_dataset(dataset_name: str = None)->Data:
         
         ids = torch.arange(start=0, end=dataset.x.shape[0]-1, step=1).tolist()
 
-        train_index, test_index = train_test_split(ids, test_size=0.2, random_state=random.randint(0, 100))
+        train_index, test_index = train_test_split(ids, test_size=test_size, random_state=random.randint(0, 100))
         
         return Data(x=dataset.x, edge_index=dataset.edge_index, y=dataset.y, train_mask=train_index, test_mask=test_index)
     
@@ -31,7 +31,7 @@ def get_dataset(dataset_name: str = None)->Data:
         # It WORKS
         dataset = KarateClub()[0]
         ids = torch.arange(start=0, end=dataset.x.shape[0]-1, step=1).tolist()
-        train_index, test_index = train_test_split(ids, test_size=0.2, random_state=random.randint(0, 100))
+        train_index, test_index = train_test_split(ids, test_size=test_size, random_state=random.randint(0, 100))
 
         
         return Data(x=dataset.x, edge_index=dataset.edge_index, y=dataset.y, train_mask=train_index, test_mask=test_index)
@@ -42,7 +42,7 @@ def get_dataset(dataset_name: str = None)->Data:
 
         dataset = Twitch(root="data", name="EN")[0]
         ids = torch.arange(start=0, end=dataset.x.shape[0]-1, step=1).tolist()
-        train_index, test_index = train_test_split(ids, test_size=0.2, random_state=random.randint(0, 100))
+        train_index, test_index = train_test_split(ids, test_size=test_size, random_state=random.randint(0, 100))
         return Data(x=dataset.x, edge_index=dataset.edge_index, y=dataset.y, train_mask=train_index, test_mask=test_index)
     
     elif dataset_name == "actor":
@@ -60,7 +60,7 @@ def get_dataset(dataset_name: str = None)->Data:
 
         dataset = WebKB(root="data", name=dataset_name)[0]  
         ids = torch.arange(start=0, end=dataset.x.shape[0]-1, step=1).tolist()
-        train_index, test_index = train_test_split(ids, test_size=0.2, random_state=random.randint(0, 100))
+        train_index, test_index = train_test_split(ids, test_size=test_size, random_state=random.randint(0, 100))
         
         return Data(x=dataset.x, edge_index=dataset.edge_index, y=dataset.y, train_mask=train_index, test_mask=test_index)
     
@@ -73,7 +73,7 @@ def get_dataset(dataset_name: str = None)->Data:
         y = dataset.y if dataset_name != "Facebook" else torch.argmax(dataset.y, dim=1)
         
         ids = torch.arange(start=0, end=dataset.x.shape[0]-1, step=1).tolist()
-        train_index, test_index = train_test_split(ids, test_size=0.2, random_state=random.randint(0, 100))
+        train_index, test_index = train_test_split(ids, test_size=test_size, random_state=random.randint(0, 100))
         return Data(x=dataset.x, edge_index=dataset.edge_index, y=y, train_mask=train_index, test_mask=test_index)        
         
     elif "syn" in dataset_name:
@@ -87,7 +87,7 @@ def get_dataset(dataset_name: str = None)->Data:
         idx_test = data["test_idx"]
         edge_index = dense_to_sparse(adj)   
 
-        train_index, test_index = train_test_split(idx_train + idx_test, test_size=0.2, random_state=random.randint(0, 100))  
+        train_index, test_index = train_test_split(idx_train + idx_test, test_size=test_size, random_state=random.randint(0, 100))  
         
         return Data(x=features, edge_index=edge_index[0], y=labels, train_mask=idx_train, test_mask=idx_test)
     
